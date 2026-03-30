@@ -1,0 +1,62 @@
+### ===== BACKEND (Spring Boot / Maven) =====
+backend/target/
+backend/HELP.md
+backend/*.log
+
+# Maven wrapper (keep jar ignored if you want smaller repo)
+backend/.mvn/wrapper/maven-wrapper.jar
+
+# Allow target inside src (rare cases)
+!backend/**/src/main/**/target/
+!backend/**/src/test/**/target/
+
+
+### ===== FRONTEND (React / Vite) =====
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.env
+
+
+### ===== IDE FILES =====
+# IntelliJ
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# VS Code
+.vscode/
+
+# Eclipse / STS
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+
+### ===== OS FILES =====
+.DS_Store
+Thumbs.db
+
+
+### ===== CONFIG / SECRETS (VERY IMPORTANT) =====
+# Spring Boot configs
+backend/src/main/resources/application.properties
+backend/src/main/resources/application-*.properties
+
+# Environment variables
+.env
