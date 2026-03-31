@@ -1,4 +1,4 @@
-package com.swan.aistudio;
+package com.swan.aistudio.service;
 
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
@@ -27,6 +27,7 @@ public class ChatService {
                         OpenAiChatOptions.builder()
                                 .model("gpt-4o-mini")
                                 .temperature(0.4)
+                                .maxTokens(15)
                                 .build()
                 ));
         return Objects.requireNonNull(response.getResult()).getOutput().getText();
