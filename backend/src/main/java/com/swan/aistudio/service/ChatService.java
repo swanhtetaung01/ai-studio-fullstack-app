@@ -25,9 +25,8 @@ public class ChatService {
                 new Prompt(
                         prompt,
                         OpenAiChatOptions.builder()
-                                .model("gpt-4o-mini")
                                 .temperature(0.4)
-                                .maxTokens(15)
+                                .maxTokens(30)
                                 .build()
                 ));
         return Objects.requireNonNull(response.getResult()).getOutput().getText();

@@ -2,6 +2,7 @@ package com.swan.aistudio.controller;
 
 import com.swan.aistudio.service.ChatService;
 import com.swan.aistudio.service.ImageService;
+import com.swan.aistudio.service.RecipeService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.ai.image.ImageResponse;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +20,12 @@ public class GenAIController {
 
     private final ImageService imageService;
 
-    public GenAIController(ChatService chatService, ImageService imageService) {
+    private final RecipeService recipeService;
+
+    public GenAIController(ChatService chatService, ImageService imageService, RecipeService recipeService) {
         this.chatService = chatService;
         this.imageService = imageService;
+        this.recipeService = recipeService;
     }
 
     @GetMapping("ask-ai")
@@ -67,4 +71,11 @@ public class GenAIController {
 //
 //        return Base64.getDecoder().decode(base64);
 //    }
+
+    @GetMapping("generate-recipe")
+    public String generateRecipe(@RequestParam String ingredients,
+                                       @RequestParam (defaultValue = "any") String cuisine,
+                                       @RequestParam (defaultValue = "none") String dietaryRestrictions) {
+        return recipeService.createRecipe(ingredients, cuisine, dietaryRestrictions);
+    }
 }
