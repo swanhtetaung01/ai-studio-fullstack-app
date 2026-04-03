@@ -26,7 +26,7 @@ public class ImageService {
         return openAiImageModel.call(
                 new ImagePrompt(prompt,
                         OpenAiImageOptions.builder()
-                                .quality(quality)// Can put "hd" for better image quality
+                                .quality(quality)
                                 .N(n)
                                 .height(height)
                                 .width(1024).build())
