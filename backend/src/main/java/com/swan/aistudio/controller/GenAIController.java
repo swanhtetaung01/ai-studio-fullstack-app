@@ -57,7 +57,7 @@ public class GenAIController {
         ImageResponse imageResponse = imageService.generateImageOptions(prompt, quality, N, width, height);
 
         return imageResponse.getResults().stream()
-                .map(result -> result.getOutput().getB64Json())
+                .map(result -> "data:image/png;base64," + result.getOutput().getB64Json())
                 .toList();
     }
 
