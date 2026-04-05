@@ -1,4 +1,4 @@
 spring.application.name=aistudio
 
-spring.ai.openai.api-key=${API-KEY}
+spring.ai.openai.api-key=${OPENAI_API_KEY}
 spring.ai.openai.image.options.model=

@@ -21,7 +21,7 @@ function App() {
         </button>
       <button className={activeTab === 'chat' ? 'active' : ''}
       onClick ={() => handleTabChange('chat')}>
-        Chat
+        Ask AI
         </button>
       <button className={activeTab === 'recipe-generator' ? 'active' : ''}
       onClick ={() => handleTabChange('recipe-generator')}>
