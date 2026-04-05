@@ -7,10 +7,9 @@ function ImageGenerator() {
     const [imageUrls, setImageUrls] = useState([]);
 
     const generateImage = async () => {
-        try{
+        try {
             const response = await fetch(`http://localhost:8080/generate-image-options?prompt=${prompt}&quality=${quality}&N=${n}`)
             const urls = await response.json();
-            console.log(urls);
             setImageUrls(urls);
         } catch (error) {
             console.error("Error generating image: ", error)
@@ -28,8 +27,9 @@ function ImageGenerator() {
             />
             <div className="option-container">
                 <input 
-                type="number" 
-                class="number_images" 
+                type="number"  
+                min="1"
+                max="2" 
                 value={n} 
                 onChange={(e) => setN(e.target.value)}/>
                 <select 
