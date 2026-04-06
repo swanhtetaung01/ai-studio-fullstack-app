@@ -3,16 +3,24 @@ import { getChatResponse } from "../services/apiService";
 
 function ChatComponent() {
     const [prompt, setPrompt] = useState('');
+    const [loading, setLoading] = useState(false);
     const [chatResponse, setChatResponse] = useState('');
 
     const askAI = async () => {
+        if (!prompt.trim()) return;
+
         try {
+            setLoading(true);
+            setChatResponse('');
             const data = await getChatResponse(prompt);
             setChatResponse(data);
         } catch(error) {
             console.error("Error generating response: ", error);
+            setChatResponse("Something went wrong.");
+        } finally {
+            setLoading(false);
         }
-    }
+    };
 
     return (
         <div>
@@ -21,11 +29,21 @@ function ChatComponent() {
             type="text"
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
+            onKeyDown={(e) => {
+                if (e.key === "Enter") askAI();
+            }}
             placeholder="Enter a prompt to chat."
             />
-            <button onClick={askAI}>Send</button>
+            <button 
+            onClick={askAI}
+            disabled={loading}
+            >{loading ? "Thinking..." : "Send"}</button>
             <div className="output">
-                <p>{chatResponse}</p>
+                {loading ? (
+                    <div className="spinner"></div>
+                ) : (
+                    <p>{chatResponse}</p>
+                )}
             </div>
         </div>
     );

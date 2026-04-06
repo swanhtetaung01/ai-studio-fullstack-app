@@ -15,6 +15,6 @@ export const generateImage = async (prompt, quality, n) => {
 export const generateRecipe = async (ingredients, cuisine, dietaryRestrictions) => {
     const response = await fetch(
         `${API_BASE_URL}/generate-recipe?ingredients=${ingredients}&cuisine=${cuisine}&dietaryRestrictions=${dietaryRestrictions}`
-    )
+    );
     return response.text();
 }
