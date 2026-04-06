@@ -6,13 +6,18 @@ function ImageGenerator() {
     const [quality, setQuality] = useState('low');
     const [n, setN] = useState('1');
     const [imageUrls, setImageUrls] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const handleClick = async () => {
+        if (!prompt.trim()) return;
         try {
+            setLoading(true);
             const urls = await generateImage(prompt, quality, n);
             setImageUrls(urls);
         } catch (error) {
             console.error("Error generating image: ", error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -42,15 +47,28 @@ function ImageGenerator() {
                     <option value="high">high</option>
                 </select>
             </div>
-            <button onClick={handleClick}>Generate Image</button>
+            <button 
+            onClick={handleClick}
+            disabled={loading}
+            >{loading ? "Generating..." : "Generate Image"}</button>
             <div className="image-grid">
-                {imageUrls.map((url, index) => (
-                    <img key={index} src={url} alt={`Generated ${index}`}/>
-                ))}
-                {[...Array(4 - imageUrls.length)].map((_, index) => (
-                    <div key={index + imageUrls.length}
-                    className="empty-image-slot"></div>
-                ))}
+                {loading ? (
+                    [...Array(4)].map((_, index) => (
+                        <div key={index} className="loading-slot">
+                            <div className="spinner"></div>
+                        </div>
+                    ))
+                ) : (
+                    <>
+                        {imageUrls.map((url, index) => (
+                            <img key={index} src={url} alt={`Generated ${index}`}/>
+                        ))}
+                        {[...Array(4 - imageUrls.length)].map((_, index) => (
+                            <div key={index + imageUrls.length}
+                            className="empty-image-slot"></div>
+                        ))}
+                    </>
+                )}
             </div>
         </div>
     );
