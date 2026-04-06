@@ -5,6 +5,7 @@ import RecipeGenerator from './components/RecipeGenerator';
 import ChatComponent from './components/ChatComponent';
 
 function App() {
+  console.log(process.env.REACT_APP_API_URL); // for testing
 
   const [activeTab, setActiveTab] = useState('image-generator');
 

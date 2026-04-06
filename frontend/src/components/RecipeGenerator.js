@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { generateRecipe } from "../services/apiService";
 
 function RecipeGenerator() {
     const [ingredients, setIngredients] = useState('');
@@ -6,10 +7,9 @@ function RecipeGenerator() {
     const [dietaryRestrictions, setDietaryRestrictions] = useState('');
     const [recipe, setRecipe] = useState('');
 
-    const generateRecipe = async () => {
+    const handleClick = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/generate-recipe?ingredients=${ingredients}&cuisine=${cuisine}&dietaryRestrictions=${dietaryRestrictions}`);
-            const data = await response.text();
+            const data = await generateRecipe(ingredients, cuisine, dietaryRestrictions);
             console.log(data);
             setRecipe(data);
         } catch (error) {
@@ -38,7 +38,7 @@ function RecipeGenerator() {
                 onChange={(e) => setDietaryRestrictions(e.target.value)}
                 placeholder="Enter dietary restrictions if any"
             />
-            <button onClick={generateRecipe}>Generate</button>
+            <button onClick={handleClick}>Generate</button>
             <div className="output">
                 <pre className="recipe-text">{recipe}</pre>
             </div>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { getChatResponse } from "../services/apiService";
 
 function ChatComponent() {
     const [prompt, setPrompt] = useState('');
@@ -6,8 +7,7 @@ function ChatComponent() {
 
     const askAI = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/ask-ai-options?prompt=${prompt}`);
-            const data = await response.text();
+            const data = await getChatResponse(prompt);
             setChatResponse(data);
         } catch(error) {
             console.error("Error generating response: ", error);

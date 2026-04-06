@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { generateImage } from "../services/apiService";
 
 function ImageGenerator() {
     const [prompt, setPrompt] = useState('');
@@ -6,13 +7,12 @@ function ImageGenerator() {
     const [n, setN] = useState('1');
     const [imageUrls, setImageUrls] = useState([]);
 
-    const generateImage = async () => {
+    const handleClick = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/generate-image-options?prompt=${prompt}&quality=${quality}&N=${n}`)
-            const urls = await response.json();
+            const urls = await generateImage(prompt, quality, n);
             setImageUrls(urls);
         } catch (error) {
-            console.error("Error generating image: ", error)
+            console.error("Error generating image: ", error);
         }
     };
 
@@ -42,7 +42,7 @@ function ImageGenerator() {
                     <option value="high">high</option>
                 </select>
             </div>
-            <button onClick={generateImage}>Generate Image</button>
+            <button onClick={handleClick}>Generate Image</button>
             <div className="image-grid">
                 {imageUrls.map((url, index) => (
                     <img key={index} src={url} alt={`Generated ${index}`}/>
